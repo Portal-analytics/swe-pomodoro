@@ -1,7 +1,7 @@
 import * as firebase from 'firebase';
-
+import {NotOurApiKey} from './sneaky_code.js'
 export const firebaseConfig = {
-    apiKey: "AIzaSyCkaAsacq8_zHAq6Nz4yVAJYgEmfumzQ10",
+    apiKey: NotOurApiKey,
     authDomain: "pomodoro-720d6.firebaseapp.com",
     databaseURL: "https://pomodoro-720d6.firebaseio.com",
     projectId: "pomodoro-720d6",

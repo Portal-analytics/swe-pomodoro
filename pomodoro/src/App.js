@@ -3,9 +3,18 @@ import logo from './logo.svg';
 import './App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {pomodoro} from "./firebase-config";
-import {Button} from 'antd';
+import {Button, Layout} from 'antd';
 import * as firebase from 'firebase';
 
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
+import Page from './Page'
+import Timer from './Timer'
+
+const { Header, Footer, Sider, Content } = Layout;
 
 var provider = new firebase.auth.GoogleAuthProvider();
 
@@ -66,9 +75,20 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <Button type="primary" onClick={() => this.handleLogInButton(this.state.logInState)}>
-          {this.state.logInState && <div>Log In</div> }{!this.state.logInState && <div>Log Out</div> }</Button> 
+      <div>
+        <Layout>
+          <Header>
+            <Button type="primary" onClick={() => this.handleLogInButton(this.state.logInState)}>
+              {this.state.logInState && <div>Log In</div> }{!this.state.logInState && <div>Log Out</div> }</Button> 
+             
+          </Header>
+          <Layout>
+            <Content className="content"> {!this.state.logInState && <Page userID={this.state.userID}/>}</Content>
+          </Layout>
+          <Layout>
+            {/*<Footer>Footer</Footer>*/}
+          </Layout>
+        </Layout>
       </div>
     );
   }
