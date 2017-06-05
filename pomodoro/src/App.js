@@ -30,7 +30,6 @@ class App extends Component {
         var token = result.credential.accessToken;
         // The signed-in user info.
         var user = result.user;
-        console.log(user);
         
       // ...
         }).catch(function(error) {
@@ -52,7 +51,6 @@ class App extends Component {
           emailVerified: false,
           logInState: !this.state.logInState
         })
-        console.log("log out successful")
         
         window.location = "/";
 
