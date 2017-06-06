@@ -15,7 +15,6 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
-
 const cardStyle = {
   width: "35%"
 };
@@ -41,7 +40,8 @@ class Page extends Component {
 
       // memo states
       user: {},
-      listOfMemoItems: []
+      listOfMemoItems: [],
+      listExists: false
     };
   }
 
@@ -145,8 +145,13 @@ class Page extends Component {
 
   handleSubmitMemo = memoInput => {
     var date = String(new Date());
-    var temp_list_of_memo_items = this.state.listOfMemoItems.splice(0);
+    var temp_list_of_memo_items = [];
+    if (this.state.listOfMemoItems != null) {
+      var temp_list_of_memo_items = this.state.listOfMemoItems.splice(0);
+    }
+
     var memoWithDate = { memoInput: memoInput, date: date };
+
     var temp_user = this.state.user;
     var temp_userID = this.props.userID;
     var updated_temp_list_of_memo_items = temp_list_of_memo_items.concat([
@@ -154,6 +159,27 @@ class Page extends Component {
     ]);
     temp_user[temp_userID] = updated_temp_list_of_memo_items;
     this.writeUserAndMemoData(temp_user);
+    var temp_userID = this.props.userID;
+    var readData = firebase.database().ref();
+    this.setState({
+      ...this.state,
+      listExists: true
+    });
+    readData.on("value", snapshot => {
+      if (snapshot.val() === null) {
+        this.setState({
+          ...this.state,
+          user: {},
+          listOfMemoItems: []
+        });
+      } else {
+        this.setState({
+          ...this.state,
+          user: snapshot.val().temp_user,
+          listOfMemoItems: snapshot.val().temp_user[this.props.userID]
+        });
+      }
+    });
   };
 
   writeUserAndMemoData = temp_user => {
@@ -223,16 +249,17 @@ class Page extends Component {
               <Card>
                 <CardHeader> Memo List </CardHeader>
                 <CardText>
-                  <table>
-                    {this.state.listOfMemoItems.map(memoItem => {
-                      return (
-                        <tr>
-                          <td> {memoItem.memoInput} </td>
-                          <td> {memoItem.date} </td>
-                        </tr>
-                      );
-                    })}
-                  </table>
+                  {this.state.listOfMemoItems != null &&
+                    <table>
+                      {this.state.listOfMemoItems.map(memoItem => {
+                        return (
+                          <tr>
+                            <td> {memoItem.memoInput} </td>
+                            <td> {memoItem.date} </td>
+                          </tr>
+                        );
+                      })}
+                    </table>}
                 </CardText>
               </Card>
             </div>
