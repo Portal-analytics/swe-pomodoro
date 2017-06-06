@@ -7,6 +7,7 @@ import { Button, Layout } from "antd";
 import * as firebase from "firebase";
 import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
+import IconButton from "material-ui/IconButton";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Page from "./Page";
 import Timer from "./Timer";
@@ -32,15 +33,14 @@ class App extends Component {
         .then(result => {
           this.setState({
             username: result.user.displayName,
-            emailVerified: result.user.emailVerified,
             logInState: !this.state.logInState,
-            userID: result.user.uid
+            photoURL: result.user.photoURL
           });
           // This gives you a Google Access Token. You can use it to access the Google API.
           var token = result.credential.accessToken;
           // The signed-in user info.
           var user = result.user;
-
+          console.log(user);
           // ...
         })
         .catch(function(error) {
@@ -86,14 +86,28 @@ class App extends Component {
                 />
               }
               iconElementRight={
-                <button
-                  className="button"
-                  type="primary"
-                  onClick={() => this.handleLogInButton(this.state.logInState)}
-                >
-                  {this.state.logInState && <div>Log In</div>}
-                  {!this.state.logInState && <div>Log Out</div>}
-                </button>
+                <div className="rightIcons">
+                  {!this.state.logInState &&
+                    <span className="welcome">
+                      {" "}Welcome {this.state.username}!
+                      {" "}
+                    </span>}
+                  <span>
+                    {" "}
+                    <img className="appIconPicture" src={this.state.photoURL} />
+                    {" "}
+                  </span>
+                  <button
+                    className="button"
+                    type="primary"
+                    onClick={() =>
+                      this.handleLogInButton(this.state.logInState)}
+                  >
+                    {this.state.logInState && <div>Log In</div>}
+                    {!this.state.logInState && <div>Log Out</div>}
+                  </button>
+
+                </div>
               }
               style={{
                 backgroundColor: "black"
@@ -101,7 +115,11 @@ class App extends Component {
             />
           </div>
           {" "}
-          {!this.state.logInState && <Page userID={this.state.username} />}
+          {!this.state.logInState &&
+            <Page
+              userID={this.state.username}
+              photoURL={this.state.photoURL}
+            />}
           {this.state.logInState && <Motivation />}
         </div>
       </MuiThemeProvider>

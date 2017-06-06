@@ -221,6 +221,18 @@ class Page extends Component {
       }
     });
   }
+  /*
+  createLeaderBoard = () => {
+    console.log(this.state.userlist);
+    var userList = this.state.userlist;
+    var list1 = userList.map(userKey => {
+      this.state.user[userKey].length;
+    });
+    list1.sort();
+    console.log(list1);
+  };
+  */
+
   render() {
     return (
       <MuiThemeProvider>
@@ -268,7 +280,6 @@ class Page extends Component {
               <CardActions>
                 <FlatButton
                   label={this.state.play ? "Start" : "Stop"}
-                  disabled={!this.state.memoInput}
                   onClick={event => {
                     this.state.play ? this.startTimer() : this.stopTimer();
                   }}
@@ -283,23 +294,43 @@ class Page extends Component {
           <div className="leaderboard">
             <Card style={cardStyle}>
               <CardHeader> Leaderboard </CardHeader>
+
               <CardText>
                 <table>
-                  {this.state.userlist.map(userKey => {
-                    return (
-                      <tr>
-                        <td> {userKey} </td>
-                        <td>
-                          {this.state.user[userKey].length}
-                        </td>
-                      </tr>
-                    );
-                  })}
+                  {this.state.userlist
+                    .sort((a, b) => {
+                      return (
+                        this.state.user[b].length - this.state.user[a].length
+                      );
+                    })
+                    .map(userKey => {
+                      return (
+                        <tr>
+                          <td> {userKey} </td>
+                          <td>
+                            {this.state.user[userKey].length}
+                          </td>
+                        </tr>
+                      );
+                    })}
                 </table>
               </CardText>
+
             </Card>
           </div>
 
+        </div>
+      </MuiThemeProvider>
+    );
+  }
+}
+
+class Profile extends Component {
+  render() {
+    return (
+      <MuiThemeProvider>
+        <div>
+          hello
         </div>
       </MuiThemeProvider>
     );
