@@ -1,4 +1,19 @@
-.timer{
-    display: flex;
-    align-content: center;
+.bigdiv {
+  display: flex;
+}
+
+.memolist {
+  float: right;
+  width: 20%;
+}
+
+.timer {
+  align-content: center;
+  float: right;
+  width: 60%;
+}
+
+.leaderboard {
+  float: right;
+  width: 20%;
 }

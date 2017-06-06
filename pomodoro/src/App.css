@@ -1,11 +1,35 @@
-.pomoTable{
-    width: 100%;
+.pomoTable {
+  width: 100%;
 }
 
 .sidebar {
-    background-color:lavender;
+  background-color: lavender;
 }
 
 .content {
-    display: center;
+  display: center;
+}
+
+.header {
+  margin: 0;
+  padding: 0;
+}
+
+.logInButton {
+  padding: 20px;
+  background-color: black;
+  text-align: right;
+}
+
+.button {
+  background: black;
+  border-radius: 2px;
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 3px;
+  padding: 10px 20px;
+  text-decoration: none;
+  text-transform: uppercase;
+  -webkit-transition: box-shadow 1s ease;
+  transition: box-shadow 1s ease;
 }

@@ -15,8 +15,9 @@ import {
   TableRow,
   TableRowColumn
 } from "material-ui/Table";
+
 const cardStyle = {
-  width: "35%"
+  margin: "12"
 };
 
 const timeStyle = {
@@ -24,7 +25,7 @@ const timeStyle = {
 };
 
 const memoStyle = {
-  width: "50%"
+  width: "100%"
 };
 
 class Page extends Component {
@@ -41,7 +42,8 @@ class Page extends Component {
       // memo states
       user: {},
       listOfMemoItems: [],
-      listExists: false
+      listExists: false,
+      userlist: []
     };
   }
 
@@ -144,21 +146,30 @@ class Page extends Component {
   };
 
   handleSubmitMemo = memoInput => {
-    var date = String(new Date());
+    var date = new Date();
     var temp_list_of_memo_items = [];
+    var temp_userlist = [];
     if (this.state.listOfMemoItems != null) {
       var temp_list_of_memo_items = this.state.listOfMemoItems.splice(0);
     }
+    if (this.state.userlist != null) {
+      var temp_userlist = this.state.userlist.splice(0);
+    }
 
-    var memoWithDate = { memoInput: memoInput, date: date };
-
+    var memoWithDate = { memoInput: memoInput, date: date.toDateString() };
     var temp_user = this.state.user;
     var temp_userID = this.props.userID;
     var updated_temp_list_of_memo_items = temp_list_of_memo_items.concat([
       memoWithDate
     ]);
+
+    var updated_temp_user_list = temp_userlist;
+
+    if (!updated_temp_user_list.includes(temp_userID)) {
+      updated_temp_user_list = temp_userlist.concat([this.props.userID]);
+    }
     temp_user[temp_userID] = updated_temp_list_of_memo_items;
-    this.writeUserAndMemoData(temp_user);
+    this.writeUserAndMemoData(temp_user, updated_temp_user_list);
     var temp_userID = this.props.userID;
     var readData = firebase.database().ref();
     this.setState({
@@ -170,21 +181,24 @@ class Page extends Component {
         this.setState({
           ...this.state,
           user: {},
-          listOfMemoItems: []
+          listOfMemoItems: [],
+          userlist: []
         });
       } else {
         this.setState({
           ...this.state,
           user: snapshot.val().temp_user,
-          listOfMemoItems: snapshot.val().temp_user[this.props.userID]
+          listOfMemoItems: snapshot.val().temp_user[this.props.userID],
+          userlist: snapshot.val().userlist
         });
       }
     });
   };
 
-  writeUserAndMemoData = temp_user => {
+  writeUserAndMemoData = (temp_user, updated_temp_user_list) => {
     firebase.database().ref().set({
-      temp_user
+      temp_user: temp_user,
+      userlist: updated_temp_user_list
     });
   };
 
@@ -196,21 +210,42 @@ class Page extends Component {
         this.setState({
           ...this.state,
           user: {},
-          listOfMemoItems: []
+          listOfMemoItems: [],
+          userlist: []
         });
       } else {
         this.setState({
           ...this.state,
           user: snapshot.val().temp_user,
-          listOfMemoItems: snapshot.val().temp_user[this.props.userID]
+          listOfMemoItems: snapshot.val().temp_user[this.props.userID],
+          userlist: snapshot.val().userlist
         });
+        console.log(snapshot.val().userlist);
       }
     });
   }
   render() {
     return (
       <MuiThemeProvider>
-        <div>
+        <div className="bigdiv">
+          <div className="memoList">
+            <Card style={cardStyle}>
+              <CardHeader> Memo List </CardHeader>
+              <CardText>
+                {this.state.listOfMemoItems != null &&
+                  <table>
+                    {this.state.listOfMemoItems.map(memoItem => {
+                      return (
+                        <tr>
+                          <td> {memoItem.memoInput} </td>
+                          <td> {memoItem.date} </td>
+                        </tr>
+                      );
+                    })}
+                  </table>}
+              </CardText>
+            </Card>
+          </div>
           <div className="timer">
             <Card style={cardStyle}>
               <CardHeader style={timeStyle}>
@@ -245,43 +280,23 @@ class Page extends Component {
                 />
               </CardActions>
             </Card>
-            <div className="memoList">
-              <Card>
-                <CardHeader> Memo List </CardHeader>
-                <CardText>
-                  {this.state.listOfMemoItems != null &&
-                    <table>
-                      {this.state.listOfMemoItems.map(memoItem => {
-                        return (
-                          <tr>
-                            <td> {memoItem.memoInput} </td>
-                            <td> {memoItem.date} </td>
-                          </tr>
-                        );
-                      })}
-                    </table>}
-                </CardText>
-              </Card>
-            </div>
-
-            <div className="leaderboard">
-              <Card>
-                <CardHeader> Leaderboard </CardHeader>
-                {/*<CardText>
-                  <table>
-                    {this.state.listOfMemoItems.map(memoItem => {
-                      return (
-                        <tr>
-                          <td> {memoItem.memoInput} </td>
-                          <td> {memoItem.date} </td>
-                        </tr>
-                      );
-                    })}
-                  </table>
-                </CardText>*/}
-              </Card>
-            </div>
-
+          </div>
+          <div className="leaderboard">
+            <Card style={cardStyle}>
+              <CardHeader> Leaderboard </CardHeader>
+              <CardText>
+                <table>
+                  {this.state.userlist.map(userKey => {
+                    return (
+                      <tr>
+                        <td> {this.state.user[userKey].length}
+                        {" "}</td>
+                      </tr>
+                    );
+                  })}
+                </table>
+              </CardText>
+            </Card>
           </div>
 
         </div>
