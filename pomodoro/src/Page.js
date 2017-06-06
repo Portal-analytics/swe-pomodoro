@@ -261,12 +261,14 @@ class Page extends Component {
                 <RaisedButton
                   primary={true}
                   label="Submit"
+                  disabled={!this.state.memoInput}
                   onClick={() => this.handleSubmitMemo(this.state.memoInput)}
                 />
               </CardText>
               <CardActions>
                 <FlatButton
                   label={this.state.play ? "Start" : "Stop"}
+                  disabled={!this.state.memoInput}
                   onClick={event => {
                     this.state.play ? this.startTimer() : this.stopTimer();
                   }}

@@ -10,6 +10,7 @@ import RaisedButton from "material-ui/RaisedButton";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Page from "./Page";
 import Timer from "./Timer";
+import Motivation from "./Motivation";
 
 const { Header, Footer, Sider, Content } = Layout;
 
@@ -78,8 +79,12 @@ class App extends Component {
           <div className="header">
             <AppBar
               title="Pomodoro Timer"
-              iconClassNameRight="muidocs-icon-navigation-expand-more"
-              showMenuIconButton={false}
+              iconElementLeft={
+                <img
+                  src="http://www.iconsdb.com/icons/preview/white/tomato-xxl.png"
+                  className="appIcon"
+                />
+              }
               iconElementRight={
                 <button
                   className="button"
@@ -97,6 +102,7 @@ class App extends Component {
           </div>
           {" "}
           {!this.state.logInState && <Page userID={this.state.username} />}
+          {this.state.logInState && <Motivation />}
         </div>
       </MuiThemeProvider>
     );
