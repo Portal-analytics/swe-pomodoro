@@ -59,7 +59,7 @@ class Page extends Component {
     this.setState({ count: this.state.count + -1 });
     if (this.state.work) {
       if (this.state.count == this.state.half25) {
-        new Notification("Half Way for " + this.state.name + "!");
+        new Notification("Half Way for " + this.state.memoInput + "!");
       }
     }
 
@@ -70,14 +70,14 @@ class Page extends Component {
     }
     if (this.state.count == 0) {
       if (this.state.work) {
-        this.stopTimer();
+        // this.stopTimer();
         this.setState({
           ...this.state,
           work: false,
           count: 300,
           play: true
         });
-        new Notification("Time's Up for " + this.state.name + "!");
+        new Notification("Time's Up for " + this.state.memoInput + "!");
       } else if (!this.state.work) {
         this.stopTimer();
         this.setState({
