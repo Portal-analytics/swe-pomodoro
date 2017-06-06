@@ -59,14 +59,12 @@ class Page extends Component {
     this.setState({ count: this.state.count + -1 });
     if (this.state.work) {
       if (this.state.count == this.state.half25) {
-        console.log(2 * this.state.count);
         new Notification("Half Way for " + this.state.name + "!");
       }
     }
 
     if (!this.state.work) {
       if (this.state.count == this.state.half5) {
-        console.log(2 * this.state.count);
         new Notification("Half Way for Break!");
       }
     }
@@ -220,7 +218,6 @@ class Page extends Component {
           listOfMemoItems: snapshot.val().temp_user[this.props.userID],
           userlist: snapshot.val().userlist
         });
-        console.log(snapshot.val().userlist);
       }
     });
   }
@@ -289,8 +286,10 @@ class Page extends Component {
                   {this.state.userlist.map(userKey => {
                     return (
                       <tr>
-                        <td> {this.state.user[userKey].length}
-                        {" "}</td>
+                        <td> {userKey} </td>
+                        <td>
+                          {this.state.user[userKey].length}
+                        </td>
                       </tr>
                     );
                   })}

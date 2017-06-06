@@ -39,7 +39,6 @@ class App extends Component {
           var token = result.credential.accessToken;
           // The signed-in user info.
           var user = result.user;
-          console.log(user);
 
           // ...
         })
@@ -63,7 +62,6 @@ class App extends Component {
             emailVerified: false,
             logInState: !this.state.logInState
           });
-          console.log("log out successful");
 
           window.location = "/";
         })
@@ -98,7 +96,7 @@ class App extends Component {
             />
           </div>
           {" "}
-          {!this.state.logInState && <Page userID={this.state.userID} />}
+          {!this.state.logInState && <Page userID={this.state.username} />}
         </div>
       </MuiThemeProvider>
     );
