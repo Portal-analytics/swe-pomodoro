@@ -1,4 +1,21 @@
-.timer{
-    display: flex;
-    align-content: center;
+.bigdiv {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.memolist {
+  order: 1;
+  flex-grow: 1;
+}
+
+.timer {
+  align-content: center;
+  order: 2;
+  flex-grow: 2;
+}
+
+.leaderboard {
+  order: 3;
+  flex-grow: 1;
 }
