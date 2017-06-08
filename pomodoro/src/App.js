@@ -97,15 +97,6 @@ class App extends Component {
                     <img className="appIconPicture" src={this.state.photoURL} />
                     {" "}
                   </span>
-                  <button
-                    className="button"
-                    type="primary"
-                    onClick={() =>
-                      this.handleLogInButton(this.state.logInState)}
-                  >
-                    {this.state.logInState && <div>Log In</div>}
-                    {!this.state.logInState && <div>Log Out</div>}
-                  </button>
 
                 </div>
               }
@@ -113,6 +104,7 @@ class App extends Component {
                 backgroundColor: "black"
               }}
             />
+
           </div>
           {" "}
           {!this.state.logInState &&
@@ -121,6 +113,14 @@ class App extends Component {
               photoURL={this.state.photoURL}
             />}
           {this.state.logInState && <Motivation />}
+          <button
+            className="button"
+            type="primary"
+            onClick={() => this.handleLogInButton(this.state.logInState)}
+          >
+            {this.state.logInState && <div>Log In</div>}
+            {!this.state.logInState && <div>Log Out</div>}
+          </button>
         </div>
       </MuiThemeProvider>
     );

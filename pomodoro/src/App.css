@@ -43,6 +43,8 @@
   -webkit-transition: box-shadow 1s ease;
   transition: box-shadow 1s ease;
   margin-bottom: 10px;
+  position: relative;
+  left: 46%;
 }
 .App-intro {
   text-align: center;
