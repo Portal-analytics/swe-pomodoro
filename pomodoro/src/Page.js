@@ -221,17 +221,6 @@ class Page extends Component {
       }
     });
   }
-  /*
-  createLeaderBoard = () => {
-    console.log(this.state.userlist);
-    var userList = this.state.userlist;
-    var list1 = userList.map(userKey => {
-      this.state.user[userKey].length;
-    });
-    list1.sort();
-    console.log(list1);
-  };
-  */
 
   render() {
     return (
@@ -239,7 +228,7 @@ class Page extends Component {
         <div className="bigdiv">
           <div className="memoList">
             <Card style={cardStyle}>
-              <CardHeader> Memo List </CardHeader>
+              <CardHeader> Session List </CardHeader>
               <CardText>
                 {this.state.listOfMemoItems != null &&
                   <table>
@@ -266,7 +255,7 @@ class Page extends Component {
                 <TextField
                   style={memoStyle}
                   multiLine={true}
-                  hintText="Describe task here."
+                  hintText="Submit session memo to start timer."
                   onChange={this.handleMemoInput}
                 />
                 <br />
@@ -279,7 +268,7 @@ class Page extends Component {
               </CardText>
               <CardActions>
                 <FlatButton
-                  label={this.state.play ? "Start" : "Stop"}
+                  label={this.state.play ? "Start" : "Pause"}
                   onClick={event => {
                     this.state.play ? this.startTimer() : this.stopTimer();
                   }}

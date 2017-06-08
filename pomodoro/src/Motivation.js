@@ -3,17 +3,21 @@ import AppBar from "material-ui/AppBar";
 import RaisedButton from "material-ui/RaisedButton";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 const quotes = [
-  "Stop crying. Fucking code.",
-  "Knock Knock. Who's There? Fuck you. Work.",
-  "Show some fucking heart.",
-  "React isn't that fucking hard, just do it.",
-  "Eat some healthy fucking food.",
-  "Try being a little fucking social.",
-  "Fucking smile.",
-  "Make people fucking like you.",
-  "Get to fucking work.",
-  "Stop fucking procrastinating.",
-  "Hire Spencer."
+  "Work outside of your habits.",
+  "Stop staring. Get to work.",
+  "Knock Knock. Who's There? Nobody. Go Work.",
+  "Show some heart.",
+  "Eat some healthy food.",
+  "Smile.",
+  "Get to work.",
+  "Stop procrastinating.",
+  "Get over yourself.",
+  "Use spell check.",
+  "Trust your gut.",
+  "Question everything.",
+  "Keep learning.",
+  "Think about all the possibilities.",
+  "Find inspiration everywhere."
 ];
 
 const style = {
@@ -74,7 +78,8 @@ class Motivation extends Component {
         <h1 onClick={this.theSwitch} className="App-intro">
           {quotes[this.state.arrayIndex]}
         </h1>
-        <p className="helper"> Click the text for some fucking motivation </p>
+        <p className="helper"> Click the text for some motivation. </p>
+        <p className="helper"> Login to start working. </p>
       </div>
     );
   }
