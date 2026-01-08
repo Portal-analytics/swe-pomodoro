@@ -15,7 +15,7 @@
 5 verbose stack     at ReadFileContext.<anonymous> (C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:308:29)
 5 verbose stack     at ReadFileContext.callback (C:\Program Files\nodejs\node_modules\npm\node_modules\graceful-fs\graceful-fs.js:78:16)
 5 verbose stack     at FSReqWrap.readFileAfterOpen [as oncomplete] (fs.js:366:13)
-6 verbose cwd C:\Users\taylo\desktop\swe-pomodoro
+6 verbose cwd C:\Users\taylo\Desktop\swe-pomodoro
 7 error Windows_NT 10.0.14393
 8 error argv "C:\\Program Files\\nodejs\\node.exe" "C:\\Program Files\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "start"
 9 error node v6.10.3
